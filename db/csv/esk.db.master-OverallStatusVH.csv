@@ -1,0 +1,5 @@
+Status,Text,DisplayText
+P,Pending,P (Pending)
+A,Approved,A (Approved)
+R,Rejected,R (Rejected)
+O,Open,O (Open)

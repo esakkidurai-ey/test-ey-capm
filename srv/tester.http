@@ -1,0 +1,115 @@
+### Get main Service call
+http://localhost:4004/odata/v4/CatalogService/
+
+### Get main Service Call's metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+
+
+// Playing with EmployeeSet
+
+### Get EmployeeSet Entity from Catalog Service
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+### Get One Employee from EmployeeSet using ID
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19787FB
+
+### Post a new Data in the EmployeeSet
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+  "nameFirst": "Dragon",
+  "nameMiddle": null,
+  "nameLast": "",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "T",
+  "phoneNumber": "+1 224 374 5294",
+  "email": "d.ragavan@ags.com",
+  "loginName": "DRAGON",
+  "Currency_code": "INR",
+  "salaryAmount": 250000,
+  "accountNumber": "2359384",
+  "bankId": "51000098",
+  "bankName": "Canara Bank"
+}
+
+### GET the POSTED data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/69a9ae19-9e82-4743-b4de-a377169cdfed
+
+### UPDATE (PATCH) the POSTED data
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/69a9ae19-9e82-4743-b4de-a377169cdfed
+Content-Type: application/json
+
+{
+  "nameFirst": "Dragon",
+  "nameMiddle": null,
+  "nameLast": "",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "T",
+  "phoneNumber": "+1 224 374 5294",
+  "email": "d.ragavan@ags.com",
+  "loginName": "DRAGON",
+  "Currency_code": "INR",
+  "salaryAmount": 300000,
+  "accountNumber": "2359384",
+  "bankId": "51000098",
+  "bankName": "KVB Bank"
+}
+
+### DELETE the POSTED data
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/30b1de22-7567-4f80-bfca-1bdb9e39f019
+
+
+// Playing with POs (Header) PurchaseOrderItems (Items)
+
+### Get all Purchase Order
+http://localhost:4004/odata/v4/CatalogService/POs
+
+### Get one Purchase Order by ID
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2C052
+
+### Get that Purchase Order's Items alone
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2C052/Items
+
+### Get that Purchase Order's Header + Items
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2C052?$expand=Items
+
+
+// Playing with Mixin: Data Load on demand => Get the PO Orders where all the particular Products are present
+
+### Get all the Products
+http://localhost:4004/odata/v4/CatalogService/ProductView
+
+### Expand using Mixin's alias keyword (PO_ORDER = To_Items)
+http://localhost:4004/odata/v4/CatalogService/ProductView/74867AD200E41EDBA5D8B06B26F62052?$expand=To_Items
+
+
+// Playing with Actions: Defined in CatalogService.cds with an entity; Implemented in CatalogService.js
+### Boost Action
+POST http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC28052/boost
+Content-Type: application/json
+
+{}
+
+### Calling the functions
+http://localhost:4004/odata/v4/CatalogService/getLargestOrder()
+
+
+// Playing with Event Handlers:
+// before: Coded in CatalogService.js => Valdation of 1M Salary Eployee
+### Post a new Data in the EmployeeSet
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+  "nameFirst": "Dragon",
+  "Currency_code": "EUR",
+  "salaryAmount": 12500000
+}
+###
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/5ba60a9d-63f2-474d-9021-24cf0cb8389f
+
+
